@@ -688,6 +688,24 @@ Algunos de los controles realizados para transferir los datos desde la capa de b
 
 3. Se conservaron los registros que tiene la fecha y saps de las inmunizaciones, pero carecen de tipo de vacuna administrada o cantidad de esa vacuna administrada. Esto se hizo así porque puede usarse como un factor de análisis: No sabes qué vacuna se administró, ni cuántas, pero sabemos que alguna se tuvo que administrar en esa fecha y en ese saps. En caso de que esto haya sido un error, podrá eliminarse posteriormente.
 
+---
+
+# 5.3. Capa De Oro
+
+Vamos a empezar estableciendo la granularidad, dimensiones y tabla de hechos para nuestro trabajo.
+La granularidad estará dada por una consulta para una patología en un saps determinado en una fecha
+determinada, o la administración de una determinada vacuna en un saps en una específica fecha. Así, cada fila de nuestra tabla de hecho representará una consulta por una patología específica, y para la otra tabla de hecho representará una inmunización con una vacuna en particular.
+Las dimensiones relevantes serán:
+
+1. La dimensión de los saps. Responde a la pregunta de dónde.
+2. La dimensión de las patologías. Responde a la pregunta qué.
+3. La dimensión de las vacunas. También responde a la pregunta qué.
+4. La dimensión calendario. Responde a la pregunta cuándo.
+
+Las tablas de hechos serán dos: la tabla de hechos para las patologías y las tablas de hechos para las
+inmunizaciones.
+
+
 
 ---
  ## Referencias
