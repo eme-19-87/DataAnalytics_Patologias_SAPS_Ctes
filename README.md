@@ -167,6 +167,11 @@ Tabla: Inmunizaciones. Datos Abiertos Ciudad De Corrientes
         </tr>
     </thead>
     <tbody>
+         <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Nñumero entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero que sirve para identificar unívocamente a cada saps</td>
+        </tr>
         <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">saps</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
@@ -461,22 +466,227 @@ Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
     </figcaption>
 </figure>
 
-Se realizó un conjunto de limpiezas previas a la carga de datos en la capa de bronce. Si bien esto no debería ser así, debido a que la transformaciones deberían venir antes de la extracción, se realizó de esta manera para practicar la limpieza en Python. Existen algunas transformaciones adicionales que se realizarán cuando se pase de la capa de bronce a la capa de plata.
-
+ 
 ---
 
 # 5.1.1 Prelimpieza De Datos Con Python
-
-En este apartado, listaremos la limpieza de datos que realizamos con Python previo a la carga de datos en la capa de bronce en PostgreSQL. Esto dará lugar a los tres archivos que se muestran en la imagen 3:
+La limpieza de los archivos, dará lugar a los tres archivos que se muestran en la imagen 3:
 
 1. consultas_por_patologia_clean.csv
 2. inmunizacion_clean.csv
 3. listado_saps_clean.csv
 
-Si se quiere conocer a detalles los procesos realizados, debe consultarse el archivo clean.ipyb que tendrá los detalles del mismo.
+Si se quiere conocer a detalles los procesos realizados, debe consultarse el archivo clean.ipyb que tendrá las diferentes acciones realizadas para la limpieza de los datos.
+Una de las acciones que se llevó a cabo aquí fue la eliminación de duplicados.
+
 
 ---
 # 5.2. Capa De Plata
+
+En la capa de plata agregaremos algunos campos adicionales a la tabla de saps, principalmente campos que serán útiles en caso de que algunos datos de esta tabla cambien (como el teléfono de contacto, la persona a cargo del saps o el cargo que esta persona ocupa.). También se realizarán unos controles previos en la capa de bronce antes de trasladar los datos a la capa de plata y, una vez en la capa de plata, se realizará un último control para corroborar que todos los datos estén correctos.
+
+<figure>
+    <img src="assets/img/draw-io/TablasCapaPlata.png">
+    <figcaption style="text-align:center">
+        Imagen 4. Tablas Capa De Plata
+    </figcaption>
+</figure>
+
+
+Tabla Con Los Datos De Las Consultas Por Patología
+
+<table style="width:100%; border-collapse:collapse; font-family:Arial, Helvetica, sans-serif;">
+    <thead>
+        <tr>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Título de la columna
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Tipo de dato
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Descripción
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_consulta</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Un identificador entero único para cada consulta</td>
+        </tr>
+         <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Un identificador entero para obtener vincular con la tabla de saps y obtener los datos adicionales para estos últimos.</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Nombre del SAPS</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo de la consulta médica</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">patologia_desc</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Descripción de la patología</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">agrupacion_cie10</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Grupo según nomenclador CIE-10</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">patologia_cod</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Código CIE-10</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">consulta_cantidad</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero (integer)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Cantidad de consultas médicas</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">rango_etario</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Rango etario de pacientes</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">sexo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Sexo del paciente</td>
+        </tr>
+    </tbody>
+</table>
+
+Tabla Con Los Datos Para Las Inmunizaciones.
+
+<table style="width:100%; border-collapse:collapse; font-family:Arial, Helvetica, sans-serif;">
+    <thead>
+        <tr>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Título de la columna
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Tipo de dato
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Descripción
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_inmunizacion</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número de entero que identifica unívocamente a cada inmunización</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número de entero que identifica en cuál saps se administró la vacuna</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo en el cual se administró la inmunización.</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_tipo </td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Tipo de vacuna aplicada</td>
+        </tr>
+          <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_cantidad </td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero (integer)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Cantidad de vacunas efectuadas </td>
+        </tr>
+    </tbody>
+</table>
+
+Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
+
+<table style="width:100%; border-collapse:collapse; font-family:Arial, Helvetica, sans-serif;">
+    <thead>
+        <tr>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Título de la columna
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Tipo de dato
+            </th>
+            <th style="background:#00a3e0; color:#fff; border:3px solid #000; padding:12px;">
+                Descripción
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero que identifica unívocamente al saps</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">SAPS</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">El nombre del SAPS</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Barrio</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">El nombre del barrio donde se encuentra ubicado el SAPS</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Ubicación</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">El nombre de las calles donde se encuentra el SAPS</td>
+        </tr>
+         <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">contacto_telefono</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">El teléfono para comunicarse con el SAPS</td>
+        </tr>
+          <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">responsable</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Nombre y apellido de la persona responsable del SAPS</td>
+        </tr>
+          <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">cargo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">El cargo de la persona responsable</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">tiv</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Tiempo inicial válido (vit: valid initial time). Representa la fecha inicial en el cual el estado de los datos de un SAPS se toma como válido. Útil para indicar si hay algún cambio en el teléfono o en las autoridades.</td>
+        </tr>
+         <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">tfv</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Tiempo final válido (vft: valid final time). Representa la fecha final en la cual un estado de los datos de un SAPS se deja de tomar como válido. Este tiempo toma un valor muy lejano en el futuro al principio, y cambia cuando uno o más datos se modifican en la tabla. Así, los datos de un registro son válidos desde su tiv hasta su tfv. Por ejemplo, si un directivo empieza a ejercer sus funciones desde el día 01-01-2016, el registro tendrá tiv=2016/01/01, tfv=2999/01/01 (por ejemplo). Si deja de ejercer su función el 18/05/2027, el registro tendrá tiv=2016/01/01, vft=2027/05/18 y se crea un nuevo registro con todos los datos iguales, excepto por el nombre del nuevo director y tiv=2027/05/19, tfv=2999/01/01 (por ejemplo)</td>
+        </tr>
+    </tbody>
+</table>
+
+<figure>
+    <img src="assets/img/draw-io/FlujoDatosPlata.png">
+    <figcaption style="text-align:center">
+        Imagen 5. Flujo De Datos De La Capa De Plata
+    </figcaption>
+</figure>
+
+Algunos de los controles realizados para transferir los datos desde la capa de bronce a la capa de plata fueron:
+
+1. Se eliminaron los registros catalogados como <b>OPERATIVOS TERRITORIALES</b>. Esto es así porque sólo queremos analizar las consultas e inmunizaciones realizadas en los saps directamente.
+
+2. Se eliminaron registros donde todos los campos eran nulos. Como no hay datos relevantes, se decidió eliminarlos.
+
+3. Se conservaron los registros que tiene la fecha y saps de las inmunizaciones, pero carecen de tipo de vacuna administrada o cantidad de esa vacuna administrada. Esto se hizo así porque puede usarse como un factor de análisis: No sabes qué vacuna se administró, ni cuántas, pero sabemos que alguna se tuvo que administrar en esa fecha y en ese saps. En caso de que esto haya sido un error, podrá eliminarse posteriormente.
 
 
 ---
