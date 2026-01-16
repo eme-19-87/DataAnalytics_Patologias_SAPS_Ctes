@@ -4,6 +4,7 @@ select count(*) from bronze.datosctes_consultas_patologia;
 select count(*) from bronze.datosctes_saps;
 select count(*) from bronze.datosctes_inmunizacion;
 
+select * from bronze.datosctes_saps;
 --Revisar que no haya valores nulos
 --Resultado: Para consultas_patologias e inmunizacion está OK. Para saps, hay datos nulos
 --en barrio y responsable.
@@ -112,6 +113,20 @@ GROUP BY
 HAVING COUNT(*) > 1
 ORDER BY cantidad_registros DESC;
 
+--Veo el total de registros que no tengan los siguientes datos
+--Que estén sin cantidad de consultas
+--Que estén sin saps
+--Que estén sin código de patología
+--Que estén sin rango etario
+--Me da un total de 13+1+23+22=59
+--Como en total tengo 159832 datos en total para las consultas, podemos
+--eliminar estos 68 registros y no alterarían gravemente los datos.
+select 
+(select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1) as "Sin_Consulta",
+(select count(*) from bronze.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
+(select count(*) from bronze.datosctes_consultas_patologia where patologia_cod='n/a') as "Sin_Cod_Pato",
+(select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1) as "Sin_Rango_Etario"
+;
 
 
 /*Código para la eliminación de repetidos.

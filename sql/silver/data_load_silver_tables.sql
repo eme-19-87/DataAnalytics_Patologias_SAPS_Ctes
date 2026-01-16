@@ -90,17 +90,18 @@ BEGIN
     SELECT
         id_consulta,
         id_saps,
-        saps,
+        TRIM(saps),
         fecha,
-        patologia_desc,
-        agrupacion_cie10,
-        patologia_cod,
+        TRIM(UPPER(patologia_desc)),
+        TRIM(UPPER(agrupacion_cie10)),
+        TRIM(UPPER(patologia_cod)),
         id_rango_etario,
         consulta_cantidad,
-        rango_etario,
+        TRIM(UPPER(rango_etario)),
         sexo
     FROM bronze.datosctes_consultas_patologia
-    WHERE id_saps <> 99;
+    WHERE id_saps <> 99 and id_saps<>-1 and patologia_cod<>'n/a' and consulta_cantidad<>-1 
+    and id_rango_etario<>-1;
 
     v_insert_time := clock_timestamp();
     v_end_time := v_insert_time;
@@ -206,3 +207,5 @@ EXCEPTION
         RAISE; -- provoca rollback total del CALL
 END;
 $$;
+
+call silver.sp_master_load_silver_layer();

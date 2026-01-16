@@ -701,11 +701,26 @@ Las dimensiones relevantes serán:
 2. La dimensión de las patologías. Responde a la pregunta qué.
 3. La dimensión de las vacunas. También responde a la pregunta qué.
 4. La dimensión calendario. Responde a la pregunta cuándo.
+5. La dimensión rango etario. Responde a la pregunta quién.
 
 Las tablas de hechos serán dos: la tabla de hechos para las patologías y las tablas de hechos para las
 inmunizaciones.
 
 
+<figure>
+    <img src="assets/img/draw-io//TablasCapaOro.drawio.png">
+    <figcaption style="text-align:center">
+        Imagen 6. Tablas De La Capa De Oro
+    </figcaption>
+</figure>
+
+
+<figure>
+    <img src="assets/img/draw-io/FlujoDatosOro.drawio.png">
+    <figcaption style="text-align:center">
+        Imagen 7. Flujo De Datos Final
+    </figcaption>
+</figure>
 
 ---
  ## Referencias

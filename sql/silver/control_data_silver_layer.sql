@@ -4,7 +4,8 @@
 SELECT
     (SELECT COUNT(*) 
      FROM bronze.datosctes_consultas_patologia
-     WHERE id_saps <> 99) AS bronze_count,
+     WHERE id_saps <> 99 and id_saps<>-1 and patologia_cod<>'n/a' and consulta_cantidad<>-1 
+    and id_rango_etario<>-1) AS bronze_count,
 
     (SELECT COUNT(*) 
      FROM silver.datosctes_consultas_patologia) AS silver_count;
@@ -119,7 +120,26 @@ GROUP BY
 HAVING COUNT(*) > 1
 ORDER BY cantidad_registros DESC;
 
+--Veo el total de registros que no tengan los siguientes datos
+--Que estén sin cantidad de consultas
+--Que estén sin saps
+--Que estén sin código de patología
+--Que estén sin rango etario
+--Me da un total de 13+1+23+22=69
+--Como en total tengo 159832 datos en total para las consultas, podemos
+--eliminar estos 68 registros y no alterarían gravemente los datos.
+select 
+(select count(*) from silver.datosctes_consultas_patologia where consulta_cantidad=-1) as "Sin_Consulta",
+(select count(*) from silver.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
+(select count(*) from silver.datosctes_consultas_patologia where patologia_cod='n/a') as "Sin_Cod_Pato",
+(select count(*) from silver.datosctes_consultas_patologia where id_rango_etario=-1) as "Sin_Rango_Etario"
+;
 
+select count(*) from silver.datosctes_consultas_patologia;
+select distinct patologia_cod,agrupacion_cie10,patologia_desc from silver.datosctes_consultas_patologia
+order by patologia_cod;
+
+select * from silver.datosctes_saps;
 
 /*Código para la eliminación de repetidos.
 Básicamente, creo una nueva tabla con los datos no duplicados. Trunco la tabla original, cargo 
