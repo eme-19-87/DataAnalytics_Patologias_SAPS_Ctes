@@ -1,58 +1,61 @@
-# Dataware House Para Servicios De Salud CAPS-Corrientes, Capital
+# 🏥📊 Dataware House Para Servicios De Salud CAPS-Corrientes, Capital
 
-## Contenido
+---
 
-## 1-Introducción Del Proyecto
-   ## 1.1-Breve Explicación
-   ## 1.2-Objetivo Del Proyecto
+## 📑 Contenido
 
- ## 2-Herramientas Utilizadas
+- 📌 **1. Introducción del Proyecto**
+  - 1.1 Breve Explicación  
+  - 1.2 Objetivo del Proyecto
+- 🛠️ **2. Herramientas Utilizadas**
+- 🗂️ **3. Estructura Inicial de los Datos**
+- 📈 **4. KPI y Preguntas a Responder**
+- 🧱 **5. Estructura de las Capas**
+  - 5.1 Capa de Bronce  
+  - 5.1.1 Prelimpieza de Datos con Python  
+  - 5.2 Capa de Plata  
+  - 5.3 Capa de Oro
+- 🔗 **Referencias**
 
- ## 3-Estructura Inicial De Los Datos
+---
+
+## 📌 1. Introducción Del Proyecto
+
+ El proyecto se centra en tomar los datos que se encuentran disponibles en el sitio de datos abiertos
+ de la provincia de Corrientes, Argentina con la finalidad de crear un dataware house para la posterior consulta con herramientas BI para el análisis estadístico de estos datos.
+ Para este proyecto, se tomaron los datos de las atenciones por patologías realizadas en los Servicios de Atención Primaria De Salud (SAPS) ubicados en la provincia de Corrientes, en la capital de la misma. Además, se agregó la información de las inmunizaciones realizadas en los SAPS de la misma provincia y localidad.
  
- ## 4-KPI y Preguntas A Responder
-
- ## 5-Estructura de las Capas
-   ## 5.1-Capa De Bronce
-   ## 5.1.2-Prelimpieza De Datos Mediante Python
-   ## 5.2-Capa De Plata
-   ## 5.3-Capa De Oro
-
-
  ---
 
- ## 1-Introducción Del Proyecto
+### 📝 1.1 Breve Explicación
 
- El proyecto se centra en tomar los datos que se encuentran en el sitio de datos abiertos
- de la provincia de Corrientes, Argentina con la finalidad de crear un dataware house para la posterior consulta con herramientas BI para el análisis estadístico de la misma.
+ Tomaremos los datos de las atenciones médicas por patologías e inmunizaciones realizadas en los SAPS de Corrientes Capital, Argentina. De esta forma, podremos obtener datos estadísticos sobre la cantidad de patologías atendidas, los tipos de patologías, los centros donde se realizaron estas atenciones, el sexo de los pacientes, el rango etario de los mismos, los tipos de vacunas administradas y su cantidad. 
+ Los datos de las cantidades de atenciones podrán consultarse por patología, saps, rango etario, evolución a través del tiempo, etc. Así como los datos de cantidades de inmunizaciones también podrán consultarse por saps, rango etario, evolución a través del tiempo o por tipo de vacuna aplicada.
 
- ## 1.1-Breve Explicación
+---
 
- Tomaremos los datos de las atenciones médicas por patologías e inmunizaciones realizadas en los SAPS de Corrientes Capital. De esta forma, podremos obtener datos estadísticos sobre la cantidad de patologías atendidas, los tipos de patologías, los centros donde se realizaron estas atenciones, el sexo de los pacientes y la evolución de las atenciones a través del tiempo.
+### 🎯 1.2 Objetivo Del Proyecto
 
- # 1.2-Objetivo Del Proyecto
+El objetivo del proyecto es lograr un **Dataware House** con una capa que contenga  un **modelo en estrella** de los datos para mejorar la eficiencia en las consultas.  
+De esta manera, se podrá obtener información significativa sobre¡las atenciones e inmunizaciones. Esperamos que esto pueda facilitar la toma de decisiones informadas que ayuden a mejorar los servicios de salud.
 
- El objetivo del proyecto es lograr un Dataware House con una capa que contenga un modelo en estrella de los datos para realizar una consulta eficiente de los datos. De esa manera,
- se podrán obtener información significativa sobre las diferentes patologías atendidas en cada centro y servirá para tomar decisiones informadas que pueda ayudar a la mejora de los servicios.
+---
 
- ---
+## 🛠️ 2. Herramientas Utilizadas
 
- ## 2-Herramientas Utilizadas
+Para el desarrollo del proyecto se emplean las siguientes herramientas:
 
- Para el desarrollo del proyecto se emplearán las siguientes herramientas
+- 🐍 **Python**: Extracción, limpieza y visualización de datos.  
+- 🐘 **PostgreSQL**: Extracción, transformación y carga de datos. Creación de capas del Dataware House.  
+- 📐 **PlantUML**: Modelado de datos.  
+- 🧩 **Draw.io**: Diagramas de capas y flujos de datos.  
+- 📋 **Trello**: Gestión de tareas y planificación del proyecto.  
+- 📊 **Metabase**: Visualización de datos.
 
- <ul>
-    <li>Python: Empleado para la extracción y limpieza de datos. Empleado también para la visualización de los datos</li>
-    <li>PostgreSQL: Empleado para la extracción, limpieza de datos y carga de datos. Servirá para la creación de las capas del dataware house</li>
-    <li>PlantUML: Herramienta online empleada para el modelado de los datos.</li>
-    <li>Draw.io: Herramienta online empleada para el modelado de las capas y de los flujos de datos.</li>
-    <li>Trello: Herramienta empleada para el diseño de las tareas y la planificación del proyecto.</li>
-    <li>Metabase: Herramienta empleada para la visualización de los datos</li>
- </ul>
+---
 
- ---
 
-# 3-Estructura inicial de los datos 
+## 🗂️ 3-Estructura inicial de los datos 
 
 Tabla: Consultas Según Palogía Médica. Datos Abiertos Ciudad De Corrientes
 
@@ -258,26 +261,26 @@ Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
 
 ---
 
-## 4-KPI y Preguntas
+## 📈 4-KPI y Preguntas
 
 Las siguiente métricas pueden ser analizadas con los datos que tenemos
 
-<ul>
-    <li>Variación del total de consultas por año, año-mes y año-mes-día</li>
-    <li>El código cie10 con más consultas. Esto servirá para saber la patología más consultada</li>
-    <li>Distribucuón de las consultas según los SAPS</li>
-    <li>Distribución de las patologías según los sexos</li>
-    <li>El tipo de vacuna con mayor cantidad de administraciones</li>
-    <li>La variación de las administraciones de las vacunas a través del tiempo</li>
-    <li>Distribución del total de vacunaciones según el tipo de vacuna y los SAPS</li>
-    <li>El SAPS que más vacuna administra</li>
-</ul>
+Las siguientes métricas pueden ser analizadas con los datos disponibles:
+
+- 📅 Variación del total de consultas por año, año-mes y año-mes-día.  
+- 🦠 Código CIE-10 con mayor cantidad de consultas.  
+- 🏥 Distribución de consultas por SAPS.  
+- 🚻 Distribución de patologías según sexo.  
+- 💉 Tipo de vacuna con mayor cantidad de administraciones.  
+- ⏱️ Evolución de las inmunizaciones a lo largo del tiempo.  
+- 📊 Distribución de vacunaciones por tipo de vacuna y SAPS.  
+- 🏆 SAPS con mayor cantidad de vacunas administradas.
 
 ---
 
-## 5-Estructura De Las Capas
+## 🧱 5-Estructura De Las Capas
 
-## 5.1-Capa De Bronce
+### 🥉 5.1-Capa De Bronce
 
 El esquema para las tablas en la capa de bronce será el siguiente
 
@@ -469,7 +472,7 @@ Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
  
 ---
 
-# 5.1.1 Prelimpieza De Datos Con Python
+### 🧹 5.1.1 Limpieza De Datos Con Python
 La limpieza de los archivos, dará lugar a los tres archivos que se muestran en la imagen 3:
 
 1. consultas_por_patologia_clean.csv
@@ -481,7 +484,7 @@ Una de las acciones que se llevó a cabo aquí fue la eliminación de duplicados
 
 
 ---
-# 5.2. Capa De Plata
+### 🥈 5.2. Capa De Plata
 
 En la capa de plata agregaremos algunos campos adicionales a la tabla de saps, principalmente campos que serán útiles en caso de que algunos datos de esta tabla cambien (como el teléfono de contacto, la persona a cargo del saps o el cargo que esta persona ocupa.). También se realizarán unos controles previos en la capa de bronce antes de trasladar los datos a la capa de plata y, una vez en la capa de plata, se realizará un último control para corroborar que todos los datos estén correctos.
 
@@ -686,11 +689,11 @@ Algunos de los controles realizados para transferir los datos desde la capa de b
 
 2. Se eliminaron registros donde todos los campos eran nulos. Como no hay datos relevantes, se decidió eliminarlos.
 
-3. Se conservaron los registros que tiene la fecha y saps de las inmunizaciones, pero carecen de tipo de vacuna administrada o cantidad de esa vacuna administrada. Esto se hizo así porque puede usarse como un factor de análisis: No sabes qué vacuna se administró, ni cuántas, pero sabemos que alguna se tuvo que administrar en esa fecha y en ese saps. En caso de que esto haya sido un error, podrá eliminarse posteriormente.
+3. Se eliminaron los registros sin saps, sin código de patología, sin total de consultas y sin rango etario. El total de registros eliminados de esta manera son menos del 1% del total de registros de las consultas.
 
 ---
 
-# 5.3. Capa De Oro
+### 🥇 5.3. Capa De Oro
 
 Vamos a empezar estableciendo la granularidad, dimensiones y tabla de hechos para nuestro trabajo.
 La granularidad estará dada por una consulta para una patología en un saps determinado en una fecha
