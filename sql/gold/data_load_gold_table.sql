@@ -1,3 +1,8 @@
+/*
+Procedimiento almacenado que carga los datos en la dimensión calendario usando como fuente las fechas en consultas
+e inmunizaciones. Si se agrega alguna nueva fuente de datos, se debe modificar este procedimiento para que tenga en 
+cuenta esas fechas también.
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_dim_calendario()
 LANGUAGE plpgsql
 AS $$
@@ -69,6 +74,9 @@ EXCEPTION
 END;
 $$;
 
+/*
+Procedimiento almacenado que carga los datos de la dimension de los saps
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_dim_saps()
 LANGUAGE plpgsql
 AS $$
@@ -120,7 +128,9 @@ EXCEPTION
 END;
 $$;
 
-
+/*
+Procedimiento para cargar los datos de la dimensión patologias
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_dim_patologia()
 LANGUAGE plpgsql
 AS $$
@@ -160,7 +170,9 @@ EXCEPTION
 END;
 $$;
 
-
+/*
+Procedimiento para cargar los datos de la dimensión de rango etario
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_dim_rango_etario()
 LANGUAGE plpgsql
 AS $$
@@ -200,6 +212,9 @@ EXCEPTION
 END;
 $$;
 
+/*
+Procedimiento para cargar los datos de la dimensión de los tipos de vacunas
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_dim_vacuna()
 LANGUAGE plpgsql
 AS $$
@@ -235,7 +250,9 @@ EXCEPTION
 END;
 $$;
 
-
+/*
+Procedimiento para cargar los datos de la tabla de hecho de consultas
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_fact_consulta()
 LANGUAGE plpgsql
 AS $$
@@ -273,7 +290,9 @@ BEGIN
     RAISE NOTICE '✔ fact_consulta cargada en %', clock_timestamp() - t_start;
 END $$;
 
-
+/*
+Procedimiento para cargar los datos de la dimensión de inmunizacion
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_load_fact_inmunizacion()
 LANGUAGE plpgsql
 AS $$
@@ -304,7 +323,12 @@ BEGIN
     RAISE NOTICE '✔ fact_inmunizacion cargada en %', clock_timestamp() - t_start;
 END $$;
 
+/*
+Procedimiento central que llama a los demás procedimientos y se encarga de cargar los datos de las 
+tablas de dimensiones y hechos.
 
+Uso: call gold.sp_master_load_gold()
+*/
 CREATE OR REPLACE PROCEDURE gold.sp_master_load_gold()
 LANGUAGE plpgsql
 AS $$

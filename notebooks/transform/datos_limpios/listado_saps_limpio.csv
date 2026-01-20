@@ -1,13 +1,13 @@
 id_saps,saps,barrio,ubicacion,contacto_telefono,responsable,cargo
 76,Dr. Romilio Monzón,Cichero,Guido Spano y Velez Sarfield,3794570325,Suarez Nancy,Director
-10000,Dr. Anibal Malvido,Pirayui,Suecia y Guillermo Ojeda,3794521654,Atoche Gennel Roland,Director
+128,Dr. Anibal Malvido,Pirayui,Suecia y Guillermo Ojeda,3794521654,Atoche Gennel Roland,Director
 49,Dr. Benjamin Serrano,Parque Cadenas,Ruta 5 km.2 1/2,3794293513,Rezett Diego,Director
 31,Dr. Elias Galvan,Galvan,Alverdi 2500 esq. Pizarro,3794815817,Lezcano Walter Ruben,Director
 38,Dr. JC Benitez Suarez,Lomas,Mz. 1 Casa 1. Calles S. Mancini y Juan Pa.II,3794033767,Romero Monica,Director
 47,Dr. Guillermo Rawson, San Geronimo,Centenario y Laprida,3794402928,Gomez Silvia,Director
 48,Dr. Jose de los Reyes Vidal,Santa Rita,Perez ruedas 1989,3794783210,Saucedo Mario,Director
 51,Dr. Juan Chercoff,Yecoha,Ruta 12 - Km 1040. Ramona Galarza s/n,3794694771,Obregon Walter,Director
-10001,Dr. Korimblum,,Guemes y Berazategui,3794595798,Blanchard Julio,Director
+129,Dr. Korimblum,,Guemes y Berazategui,3794595798,Blanchard Julio,Director
 88,Dr. Lifschitz,San Antonio,Horacio Quiroga esq. Roldan Belizario,3794765285,Mez Julio Jose,Director
 32,Dr. Manuel Cassuso,San Antonio Oeste,Av. Alta Gracia y Atacama,3794093565,Torres  Rodeles  A.  Sofia,Director
 41,Dr. Manuel Gonzalez,Lomas del Mirador,Sicilia y calle 31,3794596347,Gomez Baez Gustavo,Director
@@ -18,10 +18,10 @@ id_saps,saps,barrio,ubicacion,contacto_telefono,responsable,cargo
 91,Dr. Pedro Blugerman,Virgen de los dolores,Monte de Oca y gutnisky,3794620527,Piragine Fernando ,Director
 42,Dr. Santiago Lorenzo,Barrio Nuevo,Ramos Mejia y Tupac Amaru,3794559274,"Monzon, Maria Fernanda",Director
 45,Dr. Saul Calmanash,Quilmes,Zarate 3400,3794759710,Mendieta Julia Beatriz,Director
-10002,Dr. Semper,Victor Colas,Argerich 40,3794604535,D'andrea Juan Carlos,Director
+130,Dr. Semper,Victor Colas,Argerich 40,3794604535,D'andrea Juan Carlos,Director
 37,Dr. Sussini,Barrio Ferre,3 de Abril y Chaco,3794827981,Miranda Ramon Rito,Director
 36,Esperanza,Esperanza,"114 Viv. Mz B, lote 8",3794403814,Solis Maria del Carmen,Director
-10003,Guemes,Guemes II,Gascon entre las Heras y Lamadrid,3794693558,Gomez Silvia Amalia,Director
+131,Guemes,Guemes II,Gascon entre las Heras y Lamadrid,3794693558,Gomez Silvia Amalia,Director
 54,Itati,Itati,Amado Bompland al 100,379407688,Da Silva Desire,Director
 86,Paso Martinez,Paso Martinez,Paso Martinez,3794776957,Saucedo Jorge,Subsec. A Cargo
 69,Primera Junta,Primera Junta,Nuestra Seniora de la Asuncion y Ex Via,3794244113,Avalos Maria de la Paz,Director
@@ -35,5 +35,5 @@ id_saps,saps,barrio,ubicacion,contacto_telefono,responsable,cargo
 90,Sapucay,Sapucay,San Pio X. Ruta 5 km.4,3794401582,Insfran Gerardo,Director
 71,Villa Chiquita,Villa Chiquita,Pirovano al 1998,3794241748,Velarde Luis Guillermo ,Director
 70,Villa Garcia,Villa Garcia,Pasaje Paris 4098,3794065060,Yfran Elba Beatriz,Director
-10004,Centro de distribucion de Vacunas,Centro,Salta y Placido Martinez (Puerto),3794263779,Martinez Blanca,
-10005,Samun,San Geronimo,Centenario y Laprida,3794596656,Eliaz atilio Ruben,Subsec. A Cargo
+132,Centro de distribucion de Vacunas,Centro,Salta y Placido Martinez (Puerto),3794263779,Martinez Blanca,
+133,Samun,San Geronimo,Centenario y Laprida,3794596656,Eliaz atilio Ruben,Subsec. A Cargo
