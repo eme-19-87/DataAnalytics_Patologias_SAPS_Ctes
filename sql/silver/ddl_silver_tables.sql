@@ -57,7 +57,8 @@ todos los datos iguales, excepto por el nombre del nuevo director y tiv=2027/05/
 DROP TABLE IF EXISTS silver.datosctes_saps;
 
 create table silver.datosctes_saps(
-	id_saps int primary key,
+	id_registro_saps bigserial primary key,
+	id_saps int,
 	saps text,
 	barrio text,
 	ubicacion text,

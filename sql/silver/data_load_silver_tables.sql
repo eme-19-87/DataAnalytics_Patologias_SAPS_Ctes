@@ -152,7 +152,7 @@ BEGIN
         id_saps,
         saps,
         fecha,
-        vacunas_tipo,
+        TRIM(UPPER(vacunas_tipo)),
         vacunas_cantidad
     FROM bronze.datosctes_inmunizacion
     WHERE id_saps <> 99;

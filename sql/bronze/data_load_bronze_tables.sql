@@ -41,7 +41,7 @@ BEGIN
     
     -- Bloque TRY-CATCH
     BEGIN
-        -- Fase 1: TRUNCATE para olist_customers
+        -- Fase 1: TRUNCATE para bronze.datosctes_consultas_patologia
         start_truncate := clock_timestamp();
         RAISE NOTICE '🗑️  Ejecutando TRUNCATE...';
         
@@ -50,23 +50,12 @@ BEGIN
         truncate_duration := clock_timestamp() - start_truncate;
         RAISE NOTICE '✅ TRUNCATE completado en: %', truncate_duration;
         
-        -- Fase 2: COPY para olist_customers
+        -- Fase 2: COPY para bronze.datosctes_consultas_patologia
         start_copy := clock_timestamp();
         RAISE NOTICE '📥 Ejecutando COPY desde CSV...';
         
-        COPY bronze.datosctes_consultas_patologia(
-    		id_saps,
-    		saps,
-    		fecha,
-    		patologia_desc,
-    		agrupacion_cie10,
-    		patologia_cod,
-    		id_rango_etario,
-    		consulta_cantidad,
-    		rango_etario,
-    		sexo
-		)
- FROM '/import_data/ctes_consultas/consultas_por_patologia_limpio.csv' 
+        COPY bronze.datosctes_consultas_patologia
+        FROM '/import_data/ctes_consultas/consultas_por_patologia.csv' 
         DELIMITER E',' 
         CSV HEADER;
         
@@ -74,7 +63,7 @@ BEGIN
         copy_duration := end_copy - start_copy;
         
         
-        -- Cálculos finales de tiempos para olist_customers
+        -- Cálculos finales de tiempos para bronze.datosctes_consultas_patologia
         total_duration := end_copy - start_total;
         load_duration := end_copy - start_truncate;  -- truncate + copy
         
@@ -91,7 +80,7 @@ BEGIN
         RAISE NOTICE '   • TRANSACCIÓN COMPLETA: %', total_duration;
         RAISE NOTICE '========================================';
 
-		 -- Fase 1: TRUNCATE para olist_geolocation
+		 -- Fase 1: TRUNCATE para bronze.datosctes_saps;
         start_truncate := clock_timestamp();
         RAISE NOTICE '🗑️  Ejecutando TRUNCATE...';
         
@@ -100,11 +89,11 @@ BEGIN
         truncate_duration := clock_timestamp() - start_truncate;
         RAISE NOTICE '✅ TRUNCATE completado en: %', truncate_duration;
         
-        -- Fase 2: COPY para olist_geolocation
+        -- Fase 2: COPY para bronze.datosctes_saps;
         start_copy := clock_timestamp();
         RAISE NOTICE '📥 Ejecutando COPY desde CSV...';
         
-        COPY bronze.datosctes_saps FROM '/import_data/ctes_consultas/listado_saps_limpio.csv' 
+        COPY bronze.datosctes_saps FROM '/import_data/ctes_consultas/listado_saps.csv' 
         DELIMITER E',' 
         CSV HEADER;
         
@@ -129,7 +118,7 @@ BEGIN
         RAISE NOTICE '   • TRANSACCIÓN COMPLETA: %', total_duration;
         RAISE NOTICE '========================================';
 
-		 -- Fase 1: TRUNCATE para olist_order_items
+		 -- Fase 1: TRUNCATE para bronze.datosctes_inmunizacion
         start_truncate := clock_timestamp();
         RAISE NOTICE '🗑️  Ejecutando TRUNCATE...';
         
@@ -138,12 +127,12 @@ BEGIN
         truncate_duration := clock_timestamp() - start_truncate;
         RAISE NOTICE '✅ TRUNCATE completado en: %', truncate_duration;
         
-        -- Fase 2: COPY para olist_order_items
+        -- Fase 2: COPY para bronze.datosctes_inmunizacion
         start_copy := clock_timestamp();
         RAISE NOTICE '📥 Ejecutando COPY desde CSV...';
         
-        COPY bronze.datosctes_inmunizacion(id_saps,saps,fecha,vacunas_tipo,vacunas_cantidad) 
-		FROM '/import_data/ctes_consultas/inmunizaciones_limpio.csv'  
+        COPY bronze.datosctes_inmunizacion
+		FROM '/import_data/ctes_consultas/inmunizaciones.csv'  
         DELIMITER E',' 
         CSV HEADER;
         
@@ -157,7 +146,47 @@ BEGIN
         
         -- REPORTE FINAL
         RAISE NOTICE '========================================';
-        RAISE NOTICE '🎉 CARGA COMPLETADA EXITOSAMENTE para bronze.datosctes_saps';
+        RAISE NOTICE '🎉 CARGA COMPLETADA EXITOSAMENTE para bronze.datosctes_inmunizacion';
+        RAISE NOTICE '========================================';
+        RAISE NOTICE '📊 ESTADÍSTICAS:';
+        RAISE NOTICE '   Registros cargados: %', record_count;
+        RAISE NOTICE '⏱️  TIEMPOS:';
+        RAISE NOTICE '   • TRUNCATE: %', truncate_duration;
+        RAISE NOTICE '   • COPY: %', copy_duration;
+        RAISE NOTICE '   • CARGA TOTAL (truncate + copy): %', load_duration;
+        RAISE NOTICE '   • TRANSACCIÓN COMPLETA: %', total_duration;
+        RAISE NOTICE '========================================';
+
+
+         -- Fase 1: TRUNCATE para bronze.datosctes_cie10
+        start_truncate := clock_timestamp();
+        RAISE NOTICE '🗑️  Ejecutando TRUNCATE...';
+        
+        TRUNCATE TABLE bronze.datosctes_cie10;
+        
+        truncate_duration := clock_timestamp() - start_truncate;
+        RAISE NOTICE '✅ TRUNCATE completado en: %', truncate_duration;
+        
+        -- Fase 2: COPY para bronze.datosctes_cie10
+        start_copy := clock_timestamp();
+        RAISE NOTICE '📥 Ejecutando COPY desde CSV...';
+        
+        COPY bronze.datosctes_cie10
+		FROM '/import_data/ctes_consultas/tabla-salud-id_cie10.csv'  
+        DELIMITER E',' 
+        CSV HEADER;
+        
+        end_copy := clock_timestamp();
+        copy_duration := end_copy - start_copy;
+    
+        
+        -- Cálculos finales de tiempos
+        total_duration := end_copy - start_total;
+        load_duration := end_copy - start_truncate;  -- truncate + copy
+        
+        -- REPORTE FINAL
+        RAISE NOTICE '========================================';
+        RAISE NOTICE '🎉 CARGA COMPLETADA EXITOSAMENTE para bronze.datosctes_cie10';
         RAISE NOTICE '========================================';
         RAISE NOTICE '📊 ESTADÍSTICAS:';
         RAISE NOTICE '   Registros cargados: %', record_count;
@@ -184,3 +213,5 @@ BEGIN
             END;
     END;
 END $$;
+
+call bronze.sp_load_data();

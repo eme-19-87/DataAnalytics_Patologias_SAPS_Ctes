@@ -15,7 +15,7 @@ rango_etario: El rango etario al cual pertenece el paciente. En caso de no posee
 sexo: El sexo del paciente. Podrá ser 'Femenino', 'Masculino', 'n/a' en caso de faltar el dato
 */
 
-DROP TABLE IF EXISTS bronze.datosctes_consultas_patologia;
+/*DROP TABLE IF EXISTS bronze.datosctes_consultas_patologia;
 
 create table bronze.datosctes_consultas_patologia(
 	id_consulta bigserial primary key,
@@ -30,7 +30,45 @@ create table bronze.datosctes_consultas_patologia(
 	rango_etario varchar(15),
 	sexo varchar(9)
 	
+);*/
+
+DROP TABLE IF EXISTS bronze.datosctes_consultas_patologia;
+
+CREATE TABLE bronze.datosctes_consultas_patologia (
+    id_saps               TEXT,
+    saps                  TEXT,
+    fecha                 TEXT,
+    mes                   INTEGER,
+    anio                  INTEGER,
+    patologia_desc        TEXT,
+    agrupacion_cie10      TEXT,
+    patologia_cod         TEXT,
+    id_rango_etario       TEXT,
+    id_sexo               DOUBLE PRECISION,
+    consulta_cantidad     TEXT,
+    rango_etario          TEXT,
+    sexo                  TEXT,
+    barrio_del_operativo  TEXT,
+    unnamed_14             DOUBLE PRECISION,
+    unnamed_15             DOUBLE PRECISION,
+    unnamed_16             DOUBLE PRECISION,
+    unnamed_17             DOUBLE PRECISION,
+    unnamed_18             DOUBLE PRECISION,
+    unnamed_19             DOUBLE PRECISION,
+    unnamed_20             DOUBLE PRECISION,
+    unnamed_21             DOUBLE PRECISION,
+    unnamed_22             DOUBLE PRECISION,
+    unnamed_23             DOUBLE PRECISION,
+    unnamed_24             DOUBLE PRECISION,
+    unnamed_25             DOUBLE PRECISION,
+    unnamed_26             DOUBLE PRECISION,
+    unnamed_27             DOUBLE PRECISION,
+    unnamed_28             DOUBLE PRECISION,
+    unnamed_29             DOUBLE PRECISION,
+    unnamed_30             DOUBLE PRECISION,
+    unnamed_31             TEXT
 );
+
 
 /*
 Tabla con los datos de los saps
@@ -47,11 +85,10 @@ cargo: El cargo que ocupa el responsable del saps
 DROP TABLE IF EXISTS bronze.datosctes_saps;
 
 create table bronze.datosctes_saps(
-	id_saps int primary key,
 	saps text,
 	barrio text,
 	ubicacion text,
-	contacto_telefono varchar(12),
+	contacto_telefono TEXT,
 	responsable text,
 	cargo text
 );
@@ -67,7 +104,7 @@ vacunas_tipo: El tipo de vacuna aplicada
 vacunas_cantidad: La cantidad de vacunas aplicadas de ese tipo
 */
 
-DROP TABLE IF EXISTS bronze.datosctes_inmunizacion;
+/*DROP TABLE IF EXISTS bronze.datosctes_inmunizacion;
 create table bronze.datosctes_inmunizacion(
 	id_inmunizacion bigserial primary key,
 	id_saps int,
@@ -75,15 +112,51 @@ create table bronze.datosctes_inmunizacion(
 	fecha date,
 	vacunas_tipo text,
 	vacunas_cantidad int
+);*/
+
+DROP TABLE IF EXISTS bronze.datosctes_inmunizacion;
+
+CREATE TABLE bronze.datosctes_inmunizacion(
+    id_saps               TEXT,
+    saps                  TEXT,
+    fecha                 TEXT,
+    mes                   TEXT,
+    anio                  TEXT,
+    vacunas_tipo          TEXT,
+    vacunas_cantidad      TEXT,
+    barrio_del_operativo  TEXT,
+	aviso_operativo_territorial TEXT,
+    unnamed_9             TEXT,
+    unnamed_10            DOUBLE PRECISION,
+    unnamed_11            DOUBLE PRECISION,
+    unnamed_12            DOUBLE PRECISION,
+    unnamed_13            DOUBLE PRECISION,
+    unnamed_14            DOUBLE PRECISION,
+    unnamed_15            DOUBLE PRECISION,
+    unnamed_16            DOUBLE PRECISION,
+    unnamed_17            DOUBLE PRECISION,
+    unnamed_18            DOUBLE PRECISION,
+    unnamed_19            DOUBLE PRECISION,
+    unnamed_20            DOUBLE PRECISION,
+    unnamed_21            DOUBLE PRECISION,
+    unnamed_22            DOUBLE PRECISION,
+    unnamed_23            DOUBLE PRECISION,
+    unnamed_24            DOUBLE PRECISION,
+    unnamed_25            TEXT
+);
+
+DROP TABLE IF EXISTS bronze.datosctes_cie10;
+
+create table bronze.datosctes_cie10(
+	id_patologia VARCHAR(6),
+	tipo_patologia text,
+	descripcion text
 );
 
 --Comentarios para la tabla y columnas de patología
 
 COMMENT ON TABLE bronze.datosctes_consultas_patologia IS
 'Datos de las consultas por patología, previa limpieza con Python – Fuente: Datos Abiertos Corrientes';
-
-COMMENT ON COLUMN bronze.datosctes_consultas_patologia.id_consulta
-IS 'Identificador único autoincremental de la consulta';
 
 COMMENT ON COLUMN bronze.datosctes_consultas_patologia.id_saps
 IS 'Identificador del SAPS donde se realizó la consulta';
@@ -120,8 +193,6 @@ IS 'Sexo del paciente (Femenino, Masculino, n/a)';
 COMMENT ON TABLE bronze.datosctes_saps IS
 'Datos de los SAPS, previa limpieza con Python – Fuente: Datos Abiertos Corrientes';
 
-COMMENT ON COLUMN bronze.datosctes_saps.id_saps
-IS 'Identificador único del SAPS';
 
 COMMENT ON COLUMN bronze.datosctes_saps.saps
 IS 'Nombre del Servicio de Atención Primaria de la Salud (SAPS)';
@@ -145,9 +216,6 @@ IS 'Cargo que ocupa el responsable del SAPS';
 
 COMMENT ON TABLE bronze.datosctes_inmunizacion IS
 'Datos de las inmunizaciones realizadas, previa limpieza con Python – Fuente: Datos Abiertos Corrientes';
-
-COMMENT ON COLUMN bronze.datosctes_inmunizacion.id_inmunizacion
-IS 'Identificador único autoincremental de la inmunización';
 
 COMMENT ON COLUMN bronze.datosctes_inmunizacion.id_saps
 IS 'Identificador del SAPS donde se realizó la inmunización';

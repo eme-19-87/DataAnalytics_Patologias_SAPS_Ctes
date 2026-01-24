@@ -1,6 +1,49 @@
 --Comparo la cantidad de registros en cada tabla análoga entre 
 --las capas
 --Resultado: OK
+
+--4402
+--  40
+--4442
+--  164226
+-- -  4461
+--    
+
+select count(*) from bronze.datosctes_consultas_patologia where id_saps=99;
+select count(*) from bronze.datosctes_consultas_patologia;
+select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1 and patologia_cod='n/a' 
+and consulta_cantidad=-1
+
+select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1 and id_saps=99;
+select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1 and id_saps=99;
+select count(*) from bronze.datosctes_consultas_patologia where patologia_cod='n/a' and id_saps=99;
+select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1;
+select count(*) from bronze.datosctes_consultas_patologia where patologia_cod='n/a';
+select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1;
+
+select 
+(select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1 and patologia_cod='n/a') as "Sin_Consulta",
+(select count(*) from bronze.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
+(select count(*) from bronze.datosctes_consultas_patologia where patologia_cod='n/a') as "Sin_Cod_Pato",
+(select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1 and patologia_cod='n/a') as "Sin_Rango_Etario"
+;
+select 
+(select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1) as "Sin_Consulta",
+(select count(*) from bronze.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
+(select count(*) from bronze.datosctes_consultas_patologia where patologia_cod='n/a') as "Sin_Cod_Pato",
+(select count(*) from bronze.datosctes_consultas_patologia where id_rango_etario=-1) as "Sin_Rango_Etario",
+(select count(*) from bronze.datosctes_consultas_patologia where id_saps=99) as "OT"
+;
+
+select 
+(select count(*) from silver.datosctes_consultas_patologia where consulta_cantidad=-1) as "Sin_Consulta",
+(select count(*) from silver.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
+(select count(*) from silver.datosctes_consultas_patologia where patologia_cod='n/a') as "Sin_Cod_Pato",
+(select count(*) from silver.datosctes_consultas_patologia where id_rango_etario=-1) as "Sin_Rango_Etario",
+(select count(*) from silver.datosctes_consultas_patologia where id_saps=99) as "OT"
+
+select count(*) from bronze.datosctes_consultas_patologia;
+
 SELECT
     (SELECT COUNT(*) 
      FROM bronze.datosctes_consultas_patologia

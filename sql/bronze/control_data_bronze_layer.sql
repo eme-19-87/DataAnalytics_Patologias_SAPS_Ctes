@@ -3,22 +3,21 @@
 select count(*) from bronze.datosctes_consultas_patologia;
 select count(*) from bronze.datosctes_saps;
 select count(*) from bronze.datosctes_inmunizacion;
+select count(*) from bronze.datosctes_cie10;
 
 select * from bronze.datosctes_saps;
---Revisar que no haya valores nulos
---Resultado: Para consultas_patologias e inmunizacion está OK. Para saps, hay datos nulos
---en barrio y responsable.
---Acción: Rellenar esos datos a 'n/a' para cuando se pase a la capa de plata.
-select * from bronze.datosctes_consultas_patologia where id_saps IS NULL or saps IS NULL 
+
+--Revisamos los datos nulos para los campos principales
+select count(*) from bronze.datosctes_consultas_patologia where id_saps IS NULL or saps IS NULL 
 or patologia_desc IS NULL or agrupacion_cie10 IS NULL or patologia_cod IS NULL 
 or id_rango_etario IS NULL or consulta_cantidad IS NULL or rango_etario IS NULL
 or sexo IS NULL;
 
-select * from bronze.datosctes_saps where id_saps IS NULL or saps IS NULL or barrio IS NULL
+select count(*) from bronze.datosctes_saps where saps IS NULL or barrio IS NULL
 or ubicacion IS NULL or contacto_telefono IS NULL or responsable IS NULL
 or cargo IS NULL;
 
-select * from bronze.datosctes_inmunizacion where id_saps is NULL or fecha is NULL
+select count(*) from bronze.datosctes_inmunizacion where id_saps is NULL or fecha is NULL
 or vacunas_tipo IS NULL or vacunas_cantidad IS NULL;
 
 ---Como no tengo los datos, los coloco a 'n/a' para indicar la ausencia de los mismos
@@ -26,14 +25,10 @@ or vacunas_tipo IS NULL or vacunas_cantidad IS NULL;
 --UPDATE bronze.datosctes_saps SET cargo='n/a' where cargo IS NULL;
 
 
---Comprobar que los id de saps para consultas e inmunizaciones, figuran en la tabla de saps
---Resultado: Nos da que el código 99, operativos territoriales aparece en la tabla de inmunizaciones
---pero no aparece en los saps. Como no nos interesa esto, eliminaremos estos registros porque sólo
---analizaremos las inmunizaciones realizadas directamente en los saps.
---Acción: Eliminar los registros con id_saps=99 al pasar a la capa de plata.
 
-select distinct id_saps from bronze.datosctes_inmunizacion where id_saps not in (
-	select distinct id_saps from bronze.datosctes_saps
+--Comprobamos que hay nombres diferentes para saps en inmunizaciones y el listado de saps
+select distinct saps from bronze.datosctes_inmunizacion where saps not in (
+	select distinct saps from bronze.datosctes_saps
 );
 
 --Elimino los datos de los operativos territoriales en la tabla de inmunizaciones
@@ -45,6 +40,7 @@ select distinct id_saps from bronze.datosctes_inmunizacion where id_saps not in 
 select * from bronze.datosctes_consultas_patologia where id_saps not in (
 	select distinct id_saps from bronze.datosctes_saps
 );
+
 
 --Elimino los operativos territoriales para las consultas por patologia
 --DELETE FROM bronze.datosctes_consultas_patologia where id_saps=99;
@@ -118,9 +114,9 @@ ORDER BY cantidad_registros DESC;
 --Que estén sin saps
 --Que estén sin código de patología
 --Que estén sin rango etario
---Me da un total de 13+1+23+22=59
---Como en total tengo 159832 datos en total para las consultas, podemos
---eliminar estos 68 registros y no alterarían gravemente los datos.
+--Me da un total de 13+0+23+22=58
+--Como en total tengo 164226 datos en total para las consultas, podemos
+--eliminar estos 58 registros y no alterarían gravemente los datos.
 select 
 (select count(*) from bronze.datosctes_consultas_patologia where consulta_cantidad=-1) as "Sin_Consulta",
 (select count(*) from bronze.datosctes_consultas_patologia where id_saps=-1) as "Sin_Saps",
