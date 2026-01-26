@@ -104,12 +104,12 @@ BEGIN
 )
 SELECT DISTINCT
     id_saps,
-    saps,
-    barrio,
-    ubicacion,
+    UPPER(TRIM(saps)),
+    UPPER(TRIM(barrio)),
+    UPPER(TRIM(ubicacion)),
     contacto_telefono,
-    responsable,
-    cargo,
+    UPPER(TRIM(responsable)),
+    UPPER(TRIM(cargo)),
     tiv,
     tfv
 FROM silver.datosctes_saps;
@@ -285,7 +285,9 @@ BEGIN
         ON cp.rango_etario = dr.rango_etario
        AND cp.sexo = dr.sexo
     LEFT JOIN gold.dim_calendario dc
-        ON dc.fecha = cp.fecha;
+        ON dc.fecha = cp.fecha
+    WHERE cp.id_saps<>-1 and cp.patologia_cod!='n/a' and cp.id_saps!=99 and cp.rango_etario<>'n/a'
+    and cp.sexo<>'n/a' and cp.fecha >'1900-01-01';
 
     RAISE NOTICE '✔ fact_consulta cargada en %', clock_timestamp() - t_start;
 END $$;
@@ -318,7 +320,9 @@ BEGIN
     LEFT JOIN gold.dim_vacuna dv
         ON im.vacunas_tipo = dv.tipo_vacuna
     LEFT JOIN gold.dim_calendario dc
-        ON dc.fecha = im.fecha;
+        ON dc.fecha = im.fecha
+    WHERE im.id_saps<>-1 AND im.id_saps<>99 AND im.vacunas_cantidad>-1 AND im.vacunas_tipo!='n/a'
+    and im.fecha > '1900-01-01';
 
     RAISE NOTICE '✔ fact_inmunizacion cargada en %', clock_timestamp() - t_start;
 END $$;

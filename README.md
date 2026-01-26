@@ -79,10 +79,20 @@ Tabla: Consultas Según Palogía Médica. Datos Abiertos Ciudad De Corrientes
             <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Nombre del SAPS</td>
         </tr>
-        <tr>
+         <tr>
             <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo de la consulta médica</td>
+        </tr>
+          <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">mes</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">mes de la consulta médica</td>
+        </tr>
+         <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">anio</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Anio de la consulta médica</td>
         </tr>
         <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">patologia_desc</td>
@@ -113,6 +123,11 @@ Tabla: Consultas Según Palogía Médica. Datos Abiertos Ciudad De Corrientes
             <td style="border:3px solid #000; padding:10px; text-align:center;">sexo</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Sexo del paciente</td>
+        </tr>
+          <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Barrio del operativo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Si es un operativo territorial, representa el barrio donde se realizó la consulta</td>
         </tr>
     </tbody>
 </table>
@@ -170,10 +185,10 @@ Tabla: Inmunizaciones. Datos Abiertos Ciudad De Corrientes
         </tr>
     </thead>
     <tbody>
-         <tr style="background:#eaf7fd;">
+        <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
-            <td style="border:3px solid #000; padding:10px; text-align:center;">Nñumero entero</td>
-            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero que sirve para identificar unívocamente a cada saps</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Indica el identificador del saps</td>
         </tr>
         <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">saps</td>
@@ -181,19 +196,34 @@ Tabla: Inmunizaciones. Datos Abiertos Ciudad De Corrientes
             <td style="border:3px solid #000; padding:10px; text-align:center;">Nombre del saps donde se administró la vacuna</td>
         </tr>
         <tr style="background:#eaf7fd;">
-            <td style="border:3px solid #000; padding:10px; text-align:center;">periodo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo de la consulta médica.</td>
+        </tr>
+         <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">mes</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Text</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Mes del Periodo de la consulta médica.</td>
+        </tr>
+         <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">anio</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Text</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Año Periodo de la consulta médica.</td>
         </tr>
         <tr>
             <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_tipo </td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Tipo de vacuna aplicada</td>
         </tr>
-          <tr>
+        <tr>
             <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_cantidad </td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero (integer)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Cantidad de vacunas efectuadas </td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Barrio del operativo </td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Si se trata de un operativo territorial, indica el barrio donde se realizó. </td>
         </tr>
     </tbody>
 </table>
@@ -248,6 +278,8 @@ Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
     </tbody>
 </table>
 
+Existen varias columnas que se trae desde el archivo csv, pero que se notan son columnas que no traen información relevante. Parecen más columnas remanente. Como la teoría reza que debemos mantener los datos sin modificar cuando se carga a la capa de bronce, pero hay que tener en cuenta que estas columnas deben ser descartada al pasar desde bronce a plata.
+
 ---
 
 <figure role="group" id="ilust-32">
@@ -282,7 +314,10 @@ Las siguientes métricas pueden ser analizadas con los datos disponibles:
 
 ### 🥉 5.1-Capa De Bronce
 
-El esquema para las tablas en la capa de bronce será el siguiente
+El esquema para las tablas en la capa de bronce será el mismo que para el csv original. Esto lo hacemos así para mantener exactamente los datos que nos trae desde el archivo csv descargado. Sin embargo, hemos eliminado una columna que proviene del archivo de inmunizaciones: "En caso de ser Operativo Territorial Indicar el Barrio en columna H". Esta columna nos parece más descriptiva, así que la hemos eliminado directamente porque creemos que no aporta información relevante. Las demás columnas las mantenemos.
+Además, no realizamos ninguna relación entre las tablas en este punto.
+
+NOTA: Las columnas se mantienen por una cuestión de seguir la teoría. En la capa de bronce los datos deberían ser cargados exactamente como vienen de la fuente por una cuestión de auditoria y seguimiento, en caso de que la fuente original ya no estuviera disponible. Pero, es importante señalar que las columnas catalogadas como Unnamed, parecen ser columnas basura y se puede replantear el hecho de eliminarlas ya desde la capa bronce.
 
 <figure>
     <img src="assets/img/draw-io/TablasCapaBronce.png">
@@ -310,7 +345,6 @@ Tabla Con Los Datos De Las Consultas Por Patología
     </thead>
     <tbody>
         <tr style="background:#eaf7fd;">
-            <td style="border:3px solid #000; padding:10px; text-align:center;">id_consulta</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Un identificador entero único para cada consulta</td>
         </tr>
@@ -328,6 +362,16 @@ Tabla Con Los Datos De Las Consultas Por Patología
             <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo de la consulta médica</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">mes</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Mes del periodo de la consulta médica</td>
+        </tr>
+         <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">anio</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Entero</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Año del periodo de la consulta médica</td>
         </tr>
         <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">patologia_desc</td>
@@ -359,6 +403,11 @@ Tabla Con Los Datos De Las Consultas Por Patología
             <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Sexo del paciente</td>
         </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Barrio del operativo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto (string)</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Si es un operativo territorial, indica en qué barrio se realizó</td>
+        </tr>
     </tbody>
 </table>
 
@@ -380,11 +429,6 @@ Tabla Con Los Datos Para Las Inmunizaciones.
     </thead>
     <tbody>
         <tr style="background:#eaf7fd;">
-            <td style="border:3px solid #000; padding:10px; text-align:center;">id_inmunizacion</td>
-            <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
-            <td style="border:3px solid #000; padding:10px; text-align:center;">Número de entero que identifica unívocamente a cada inmunización</td>
-        </tr>
-        <tr style="background:#eaf7fd;">
             <td style="border:3px solid #000; padding:10px; text-align:center;">id_saps</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Número de entero que identifica en cuál saps se administró la vacuna</td>
@@ -393,6 +437,16 @@ Tabla Con Los Datos Para Las Inmunizaciones.
             <td style="border:3px solid #000; padding:10px; text-align:center;">fecha</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Fecha ISO-8601 (date)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Periodo en el cual se administró la inmunización.</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">mes</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Mes del periodo en el cual se administró la inmunización.</td>
+        </tr>
+        <tr style="background:#eaf7fd;">
+            <td style="border:3px solid #000; padding:10px; text-align:center;">anio</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Año del periodo en el cual se administró la inmunización.</td>
         </tr>
         <tr>
             <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_tipo </td>
@@ -403,6 +457,11 @@ Tabla Con Los Datos Para Las Inmunizaciones.
             <td style="border:3px solid #000; padding:10px; text-align:center;">vacunas_cantidad </td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Número entero (integer)</td>
             <td style="border:3px solid #000; padding:10px; text-align:center;">Cantidad de vacunas efectuadas </td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Barrio del operativo</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Texto</td>
+            <td style="border:3px solid #000; padding:10px; text-align:center;">Si es un operetivo territorial, indica en qué barrio se realizó.</td>
         </tr>
     </tbody>
 </table>
@@ -472,18 +531,6 @@ Tabla: Listado De SAPS. Datos Abiertos Ciudad De Corrientes
  
 ---
 
-### 🧹 5.1.1 Limpieza De Datos Con Python
-La limpieza de los archivos, dará lugar a los tres archivos que se muestran en la imagen 3:
-
-1. consultas_por_patologia_clean.csv
-2. inmunizacion_clean.csv
-3. listado_saps_clean.csv
-
-Si se quiere conocer a detalles los procesos realizados, debe consultarse el archivo clean.ipyb que tendrá las diferentes acciones realizadas para la limpieza de los datos.
-Una de las acciones que se llevó a cabo aquí fue la eliminación de duplicados.
-
-
----
 ### 🥈 5.2. Capa De Plata
 
 En la capa de plata agregaremos algunos campos adicionales a la tabla de saps, principalmente campos que serán útiles en caso de que algunos datos de esta tabla cambien (como el teléfono de contacto, la persona a cargo del saps o el cargo que esta persona ocupa.). También se realizarán unos controles previos en la capa de bronce antes de trasladar los datos a la capa de plata y, una vez en la capa de plata, se realizará un último control para corroborar que todos los datos estén correctos.
